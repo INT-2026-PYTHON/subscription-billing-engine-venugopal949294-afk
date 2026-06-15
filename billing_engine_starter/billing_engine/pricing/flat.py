@@ -9,14 +9,12 @@ from billing_engine.pricing.base import PricingStrategy
 
 
 class FlatRate(PricingStrategy):
+    """Charges a fixed amount every billing period."""
 
     def __init__(self, amount: Money) -> None:
-        if not isinstance(amount, Money):
-            raise TypeError("amount must be a Money instance")
-        
-        if amount.is_negative():
-            raise ValueError("amount must be non-negative")
-        self.amount = amount
+        # TODO Day 1
+        raise NotImplementedError("Day 1: implement FlatRate.__init__")
 
     def calculate(self, quantity: int) -> Money:
-        return self.amount
+        # TODO Day 1
+        raise NotImplementedError("Day 1: implement FlatRate.calculate")
