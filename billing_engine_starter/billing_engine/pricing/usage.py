@@ -9,12 +9,20 @@ from billing_engine.pricing.base import PricingStrategy
 
 
 class UsageBased(PricingStrategy):
-    """Charges `unit_price * quantity`."""
 
     def __init__(self, unit_price: Money) -> None:
-        # TODO Day 1
-        raise NotImplementedError("Day 1: implement UsageBased.__init__")
+        # Validate unit_price is a Money instance
+        if not isinstance(unit_price, Money):
+            raise TypeError("unit_price must be a Money instance")
+        
+        # Validate non-negative
+        if unit_price.is_negative():
+            raise ValueError("unit_price must be non-negative")
+        self.unit_price = unit_price
 
     def calculate(self, quantity: int) -> Money:
-        # TODO Day 1
-        raise NotImplementedError("Day 1: implement UsageBased.calculate")
+        # Reject negative quantity
+        if quantity < 0:
+            raise ValueError("quantity must be non-negative")
+        
+        return self.unit_price * quantity
