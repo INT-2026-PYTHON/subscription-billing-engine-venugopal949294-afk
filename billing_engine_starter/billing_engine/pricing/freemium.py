@@ -12,26 +12,12 @@ from billing_engine.pricing.base import PricingStrategy
 
 
 class Freemium(PricingStrategy):
+    """Returns 0 for quantity <= free_quota, else delegates overage to inner strategy."""
 
-    def __init__(self, free_quota: int, overage_strategy: PricingStrategy):
-        # Validate free_quota >= 0
-        if free_quota < 0:
-            raise ValueError("free_quota must be non-negative")
-        
-        # Validate overage_strategy is a PricingStrategy
-        if not isinstance(overage_strategy, PricingStrategy):
-            raise TypeError("overage_strategy must be a PricingStrategy")
-        # Store both
-        self.free_quota = free_quota
-        self.overage_strategy = overage_strategy
+    def __init__(self, free_quota: int, overage_strategy: PricingStrategy) -> None:
+        # TODO Day 1
+        raise NotImplementedError("Day 1: implement Freemium.__init__")
 
     def calculate(self, quantity: int) -> Money:
-        # Get currency from inner strategy
-        currency = self.overage_strategy.calculate(0).currency
-
-        # Within free quota -> free
-        if quantity <= self.free_quota:
-            return Money.zero(currency)
-
-        # Over quota -> charge only the overage
-        return self.overage_strategy.calculate(quantity - self.free_quota)
+        # TODO Day 1
+        raise NotImplementedError("Day 1: implement Freemium.calculate")
