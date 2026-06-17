@@ -40,12 +40,12 @@ class Invoice:
     subscription_id: int
     period_start: date
     period_end: date
-    currency:str
     subtotal: Money
     discount_total: Money
     tax_total: Money
     total: Money
     status: InvoiceStatus
+    currency:str = "INR"
     issued_at: Optional[datetime] = None
     pdf_path: Optional[str] = None
     line_items: list[InvoiceLineItem] = field(default_factory=list)

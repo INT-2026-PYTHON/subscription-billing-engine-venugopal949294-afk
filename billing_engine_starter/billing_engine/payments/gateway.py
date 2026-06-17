@@ -7,6 +7,8 @@ we use mocks so tests are deterministic and the demo never hits the network.
 
 from __future__ import annotations
 
+import random  #taken from tasks
+
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Optional
@@ -41,12 +43,10 @@ class ScriptedGateway(PaymentGateway):
     """
 
     def __init__(self, results: list[PaymentResult]) -> None:
-        # TODO Day 3
-        raise NotImplementedError("Day 3: implement ScriptedGateway.__init__")
+        self._results = list(results)
 
     def charge(self, invoice: Invoice) -> PaymentResult:
-        # TODO Day 3
-        raise NotImplementedError("Day 3: implement ScriptedGateway.charge")
+        return self._results.pop(0)
 
 
 # ----------------------------------------------------------------
@@ -56,9 +56,10 @@ class FakeRandomGateway(PaymentGateway):
     """Succeeds at a configurable rate; seeded for reproducibility."""
 
     def __init__(self, success_rate: float = 0.7, seed: Optional[int] = None) -> None:
-        # TODO Day 3
-        raise NotImplementedError("Day 3: implement FakeRandomGateway.__init__")
+       self._success_rate = success_rate
+       self._rng = random.Random(seed)
 
     def charge(self, invoice: Invoice) -> PaymentResult:
-        # TODO Day 3
-        raise NotImplementedError("Day 3: implement FakeRandomGateway.charge")
+         if self._rng.random() < self._success_rate:
+             return PaymentResult(success=True)
+         return PaymentResult(success=False, failure_reason="INSUFFICIENT_FUNDS")

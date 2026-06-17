@@ -54,3 +54,10 @@ class Database:
             raise
         finally:
             conn.close()
+
+    def close(self) -> None:
+        """Force sqlite3 to release the file lock on Windows."""
+        import gc
+        import time
+        gc.collect()
+        time.sleep(0.05)

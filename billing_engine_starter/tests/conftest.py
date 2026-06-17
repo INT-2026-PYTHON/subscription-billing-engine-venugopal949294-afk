@@ -34,7 +34,10 @@ def db() -> Database:
     database = Database(path)
     database.init_schema()
     yield database
+    database.close()
     Path(path).unlink(missing_ok=True)
+
+
 
 
 # ----------------------------------------------------------------
