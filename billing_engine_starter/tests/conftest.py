@@ -1,6 +1,8 @@
 """Shared pytest fixtures + helpers."""
 from __future__ import annotations
 
+from typing import Iterator
+
 import os
 import tempfile
 from dataclasses import dataclass
@@ -23,7 +25,7 @@ from billing_engine.taxes import NoTax, TaxContext
 
 
 @pytest.fixture
-def db() -> Database:
+def db() -> Iterator[Database]:
     """A fresh, file-backed SQLite database with schema applied.
 
     File-backed (not :memory:) so the same DB can be opened across multiple
